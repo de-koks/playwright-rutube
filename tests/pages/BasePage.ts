@@ -16,10 +16,6 @@ export class BasePage {
         this.loginModal = this.page
             .frameLocator('iframe[title="Multipass"]')
             .locator('[role="form"]');
-        // this.loginModal = this.page
-        //     .locator('iframe[title="Multipass"]')
-        //     .contentFrame()
-        //     .locator('[role="form"]'); //[class*="snake-wrapper-module"]
     }
 
     async closeCookieMessage() {
