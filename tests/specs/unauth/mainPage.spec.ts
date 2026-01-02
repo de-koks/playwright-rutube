@@ -1,6 +1,6 @@
 import { test } from '../../fixtures/mainPage';
 
-test.describe('Should match aria snapshots of Main page navigation elements', () => {
+test.describe('Verify acessibility of Main page elements', () => {
     test('Header', async ({ mainPage }) => {
         await mainPage.verifyHeaderAriaSnapshot();
     });
@@ -11,5 +11,20 @@ test.describe('Should match aria snapshots of Main page navigation elements', ()
 
     test('Left side menu', async ({ mainPage }) => {
         await mainPage.verifyLeftSideMenuAriaSnapshot();
+    });
+
+    test('"Add" button popup', async ({ mainPage }) => {
+        await mainPage.openAddButtonPopup();
+        await mainPage.verifyAddButtonPopupAriaSnapshot();
+    });
+
+    test('Notifications popup', async ({ mainPage }) => {
+        await mainPage.openNotificationsButtonPopup();
+        await mainPage.verifyNotificationsButtonPopupAriaSnapshot();
+    });
+
+    test('Login modal', async ({ mainPage }) => {
+        await mainPage.openLoginModal();
+        await mainPage.verifyLoginModalAriaSnapshot();
     });
 });
