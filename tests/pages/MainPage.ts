@@ -1,4 +1,4 @@
-import { expect, Locator, Page } from '@playwright/test';
+import { Locator, Page } from '@playwright/test';
 import { BasePage } from './BasePage';
 
 export class MainPage extends BasePage {
@@ -13,15 +13,17 @@ export class MainPage extends BasePage {
         });
     }
 
+    // actions
     async goto() {
         await this.page.goto('/');
     }
 
+    // assertions
     async verifyCategoriesTabsAriaSnapshot() {
-        await expect(this.categoriesTabs).toMatchAriaSnapshot();
+        await this.verifyAriaSnapshot(this.categoriesTabs, 'categoriesTabs.yml');
     }
 
     async verifyLeftSideMenuAriaSnapshot() {
-        await expect(this.leftSideMenu).toMatchAriaSnapshot();
+        await this.verifyAriaSnapshot(this.leftSideMenu, 'leftSideMenu.yml');
     }
 }

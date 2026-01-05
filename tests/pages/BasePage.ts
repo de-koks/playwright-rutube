@@ -18,6 +18,7 @@ export class BasePage {
             .locator('[role="form"]');
     }
 
+    // actions
     async closeCookieMessage() {
         await this.acceptCookiesButton.click();
         await expect(this.cookieMessage).not.toBeVisible();
@@ -38,25 +39,27 @@ export class BasePage {
         await expect(this.loginModal).toBeVisible();
     }
 
+    // assertions
+    protected async verifyAriaSnapshot(locator: Locator, snapshotName: string) {
+        await expect(locator).toMatchAriaSnapshot({ name: snapshotName });
+    }
+
     async verifyHeaderAriaSnapshot() {
-        await expect(this.header.rootEl).toMatchAriaSnapshot({ name: 'headerAriaSnapshot.yml' });
+        await this.verifyAriaSnapshot(this.header.rootEl, 'headerAriaSnapshot.yml');
     }
 
     async verifyAddButtonPopupAriaSnapshot() {
-        await expect(this.header.addButtonPopup).toMatchAriaSnapshot({
-            name: 'addButtonPopup.yml',
-        });
+        await this.verifyAriaSnapshot(this.header.addButtonPopup, 'addButtonPopup.yml');
     }
 
     async verifyNotificationsButtonPopupAriaSnapshot() {
-        await expect(this.header.notificationsButtonPopup).toMatchAriaSnapshot({
-            name: 'notificationsButtonPopup.yml',
-        });
+        await this.verifyAriaSnapshot(
+            this.header.notificationsButtonPopup,
+            'notificationsButtonPopup.yml',
+        );
     }
 
     async verifyLoginModalAriaSnapshot() {
-        await expect(this.loginModal).toMatchAriaSnapshot({
-            name: 'loginModal.yml',
-        });
+        await this.verifyAriaSnapshot(this.loginModal, 'loginModal.yml');
     }
 }
