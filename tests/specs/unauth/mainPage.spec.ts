@@ -1,4 +1,4 @@
-import { test } from '../../fixtures/mainPage';
+import { test } from '../../fixtures/fixtures';
 
 test.describe('Verify acessibility of Main page elements', () => {
     test('Header', async ({ mainPage }) => {

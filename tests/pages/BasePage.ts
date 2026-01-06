@@ -5,7 +5,7 @@ export class BasePage {
     protected readonly page: Page;
     private readonly cookieMessage: Locator;
     private readonly acceptCookiesButton: Locator;
-    readonly header: HeaderComponent;
+    protected readonly header: HeaderComponent;
     private readonly loginModal: Locator;
 
     constructor(page: Page) {
@@ -39,6 +39,16 @@ export class BasePage {
         await expect(this.loginModal).toBeVisible();
     }
 
+    protected async hideHeader() {
+        await this.page.evaluate(() => {
+            const header = document.querySelector('header');
+            if (header) {
+                header.style.display = 'none';
+            }
+        });
+        await expect(this.header.rootEl).not.toBeVisible();
+    }
+
     // assertions
     protected async verifyAriaSnapshot(locator: Locator, snapshotName: string) {
         await expect(locator).toMatchAriaSnapshot({ name: snapshotName });
@@ -61,5 +71,10 @@ export class BasePage {
 
     async verifyLoginModalAriaSnapshot() {
         await this.verifyAriaSnapshot(this.loginModal, 'loginModal.yml');
+    }
+
+    protected async verifyScreenshot(locator: Locator, screenshotName: string) {
+        await this.hideHeader();
+        await expect(locator).toHaveScreenshot(screenshotName);
     }
 }
