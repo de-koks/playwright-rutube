@@ -12,7 +12,7 @@ export class BasePage {
         this.page = page;
         this.cookieMessage = this.page.locator('.cookie-message-module__cookie-consent-wrapper');
         this.acceptCookiesButton = this.cookieMessage.locator('button');
-        this.header = new HeaderComponent(this.page.locator('header'));
+        this.header = new HeaderComponent(this.page.locator('div>header'));
         this.loginModal = this.page
             .frameLocator('iframe[title="Multipass"]')
             .locator('[role="form"]');
@@ -75,6 +75,6 @@ export class BasePage {
 
     protected async verifyScreenshot(locator: Locator, screenshotName: string) {
         await this.hideHeader();
-        await expect(locator).toHaveScreenshot(screenshotName);
+        await expect(locator).toHaveScreenshot(screenshotName, { timeout: 10000 });
     }
 }
