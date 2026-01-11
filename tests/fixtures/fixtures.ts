@@ -23,6 +23,9 @@ export const test = base.extend<MyFixtures>({
         await categoriesPage.goto();
         await categoriesPage.closeCookieMessage();
         await categoriesPage.closePromoModal();
+        if (await categoriesPage.isVpnMessageVisible()) {
+            await categoriesPage.closeVpnMessage();
+        }
         await use(categoriesPage);
     },
 });
