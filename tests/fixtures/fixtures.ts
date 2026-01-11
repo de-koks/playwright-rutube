@@ -12,6 +12,9 @@ export const test = base.extend<MyFixtures>({
         const mainPage = new MainPage(page);
         await mainPage.goto();
         await mainPage.closeCookieMessage();
+        if (await mainPage.isVpnMessageVisible()) {
+            await mainPage.closeVpnMessage();
+        }
         await use(mainPage);
     },
 

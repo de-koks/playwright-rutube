@@ -5,6 +5,8 @@ export class BasePage {
     protected readonly page: Page;
     private readonly cookieMessage: Locator;
     private readonly acceptCookiesButton: Locator;
+    private readonly vpnMessage: Locator;
+    private readonly closeVpnMessageButton: Locator;
     protected readonly header: HeaderComponent;
     private readonly loginModal: Locator;
 
@@ -12,6 +14,8 @@ export class BasePage {
         this.page = page;
         this.cookieMessage = this.page.locator('.cookie-message-module__cookie-consent-wrapper');
         this.acceptCookiesButton = this.cookieMessage.locator('button');
+        this.vpnMessage = this.page.locator('#message');
+        this.closeVpnMessageButton = this.vpnMessage.locator('button');
         this.header = new HeaderComponent(this.page.locator('div>header'));
         this.loginModal = this.page
             .frameLocator('iframe[title="Multipass"]')
@@ -22,6 +26,15 @@ export class BasePage {
     async closeCookieMessage() {
         await this.acceptCookiesButton.click();
         await expect(this.cookieMessage).not.toBeVisible();
+    }
+
+    async isVpnMessageVisible() {
+        return await this.vpnMessage.isVisible();
+    }
+
+    async closeVpnMessage() {
+        await this.closeVpnMessageButton.click();
+        await expect(this.vpnMessage).not.toBeVisible();
     }
 
     async openAddButtonPopup() {
