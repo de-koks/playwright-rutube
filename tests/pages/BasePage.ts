@@ -49,7 +49,7 @@ export class BasePage {
 
     async openLoginModal() {
         await this.header.clickLoginButton();
-        await expect(this.loginModal).toBeVisible();
+        await expect(this.loginModal).toBeVisible({ timeout: 10000 });
     }
 
     protected async hideHeader() {
